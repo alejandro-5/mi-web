@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FocusMaster | Maximiza tu Productividad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CONFIGURACIÓN GENERAL */
+        :root {
+            --primary: #4f46e5;
+            --secondary: #10b981;
+            --dark: #1f2937;
+            --light: #f3f4f6;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            color: var(--dark);
+            background-color: #ffffff;
+        }
+
+        /* NAVEGACIÓN */
+        nav {
+            background: white;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav .logo { font-weight: 700; color: var(--primary); font-size: 1.5rem; }
+        nav a { text-decoration: none; color: var(--dark); margin-left: 20px; font-weight: 500; }
+
+        /* SECCIÓN HERO (HERRAMIENTA) */
+        header {
+            padding: 80px 5%;
+            background: linear-gradient(135deg, #f5f7ff 0%, #ffffff 100%);
+            text-align: center;
+        }
+
+        .timer-container {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            display: inline-block;
+            margin-top: 30px;
+        }
+
+        .timer-display { font-size: 5rem; font-weight: 700; color: var(--primary); margin: 20px 0; }
+
+        /* SECCIÓN DE TEXTO / ARTÍCULOS */
+        .section { padding: 80px 10%; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        
+        .card {
+            padding: 25px;
+            border-radius: 16px;
+            background: var(--light);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card h3 { color: var(--primary); }
+
+        /* BOTONES */
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-main { background: var(--primary); color: white; }
+        .btn-main:hover { background: #4338ca; }
+
+        footer { background: var(--dark); color: white; padding: 40px 5%; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">FocusMaster</div>
+        <div>
+            <a href="#herramienta">Temporizador</a>
+            <a href="#tecnicas">Técnicas</a>
+            <a href="#recursos">Recursos</a>
+        </div>
+    </nav>
+
+    <header id="herramienta">
+        <h1>Tu tiempo es tu recurso más valioso</h1>
+        <p>Utiliza nuestra herramienta científica para entrar en estado de "Flow".</p>
+        
+        <div class="timer-container">
+            <div class="timer-display" id="timer">25:00</div>
+            <button class="btn btn-main" onclick="toggleTimer()" id="btnStart">Iniciar Sesión</button>
+            <button class="btn" onclick="resetTimer()">Reset</button>
+        </div>
+    </header>
+
+    <section class="section" id="tecnicas">
+        <h2 style="text-align: center;">Técnicas de Alto Rendimiento</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>La Regla de los 2 Minutos</h3>
+                <p>Si una tarea te lleva menos de dos minutos, hazla ahora. No la agendes, no la pienses. Esto libera carga mental instantáneamente.</p>
+            </div>
+            <div class="card">
+                <h3>Bloqueo de Tiempo</h3>
+                <p>Divide tu día en bloques específicos para una sola tarea. Evita el "multitasking", que reduce tu coeficiente intelectual efectivo en 10 puntos.</p>
+            </div>
+            <div class="card">
+                <h3>Comerse la Rana</h3>
+                <p>Haz la tarea más difícil y desagradable a primera hora de la mañana. El resto del día será mucho más ligero y productivo.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="recursos" style="background: #f9fafb;">
+        <h2>Recursos Recomendados</h2>
+        <p>Para potenciar este nicho, aquí podrías recomendar libros o apps:</p>
+        <ul>
+            <li><b>Libro:</b> "Hábitos Atómicos" de James Clear.</li>
+            <li><b>App:</b> Notion para organizar tus proyectos.</li>
+            <li><b>Música:</b> Lo-fi beats para concentrarse.</li>
+        </ul>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 FocusMaster - Mejora tu vida un minuto a la vez.</p>
+    </footer>
+
+    <script>
+        // JS para el funcionamiento básico
+        let timeLeft = 25 * 60;
+        let running = false;
+        let timerId;
+
+        function toggleTimer() {
+            if (running) {
+                clearInterval(timerId);
+                document.getElementById('btnStart').textContent = "Reanudar";
+            } else {
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    let mins = Math.floor(timeLeft / 60);
+                    let secs = timeLeft % 60;
+                    document.getElementById('timer').textContent = 
+                        `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+                    if (timeLeft <= 0) clearInterval(timerId);
+                }, 1000);
+                document.getElementById('btnStart').textContent = "Pausar";
+            }
+            running = !running;
+        }
+
+        function resetTimer() {
+            clearInterval(timerId);
+            timeLeft = 25 * 60;
+            document.getElementById('timer').textContent = "25:00";
+            document.getElementById('btnStart').textContent = "Iniciar Sesión";
+            running = false;
+        }
+    </script>
+</body>
+</html>
