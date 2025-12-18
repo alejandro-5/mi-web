@@ -1,0 +1,1 @@
+Aviso de Afiliación: Este sitio web participa en el Programa de Afiliados de Amazon, un programa de publicidad para afiliados diseñado para ofrecer a sitios web un modo de obtener comisiones por publicidad, publicitando e incluyendo enlaces a Amazon.
